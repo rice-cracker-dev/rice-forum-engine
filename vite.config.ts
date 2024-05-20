@@ -4,4 +4,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [sveltekit(), purgeCss()],
+  optimizeDeps: {
+    exclude: ['@node-rs/argon2', 'oslo'],
+  },
 });

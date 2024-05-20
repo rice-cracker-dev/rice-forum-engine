@@ -1,5 +1,5 @@
 <script lang="ts">
-  import '../app.postcss';
+  import '../app.css';
 
   // Highlight JS
   import hljs from 'highlight.js/lib/core';
@@ -20,6 +20,9 @@
   import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
   import { storePopup } from '@skeletonlabs/skeleton';
   storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+
+  import Navbar from '$lib/components/Navbar.svelte';
 </script>
 
+<Navbar />
 <slot />

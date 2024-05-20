@@ -1,4 +1,8 @@
 {
+  "editor.tabSize": 2,
+  "editor.quickSuggestionsDelay": 10,
+  "typescript.preferences.quoteStyle": "single",
+  "javascript.preferences.quoteStyle": "single",
   "prettier.documentSelectors": ["**/*.svelte"],
   "tailwindCSS.classAttributes": [
     "class",
