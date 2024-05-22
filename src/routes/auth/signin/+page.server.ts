@@ -17,17 +17,17 @@ export const actions: Actions = {
     const username = formData.get('username');
     const password = formData.get('password');
 
-    const [usernameValid, usernameMessage] = validateUsername(username);
-    if (typeof username !== 'string' || !usernameValid) {
+    const usernameValid = validateUsername(username);
+    if (typeof username !== 'string' || !usernameValid.validated) {
       return fail(400, {
-        message: usernameMessage,
+        message: 'Incorrect username or password',
       });
     }
 
-    const [passwordValid, passwordMessage] = validatePassword(password);
-    if (typeof password !== 'string' || !passwordValid) {
+    const passwordValid = validatePassword(password);
+    if (typeof password !== 'string' || !passwordValid.validated) {
       return fail(400, {
-        message: passwordMessage,
+        message: 'Incorrect username or password',
       });
     }
 
@@ -46,7 +46,7 @@ export const actions: Actions = {
       // it is crucial your implementation is protected against brute-force attacks with login throttling etc.
       // If usernames are public, you may outright tell the user that the username is invalid.
       return fail(400, {
-        message: 'Incorrect username or password!!',
+        message: 'Incorrect username or password',
       });
     }
 

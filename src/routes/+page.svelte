@@ -1,15 +1,19 @@
-<!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
+<script lang="ts">
+  import { enhance } from '$app/forms';
+</script>
 
-<div class="container mx-auto flex h-full items-center justify-center">
-  <div class="space-y-5">
-    <h1 class="h1">Let's get cracking bones!</h1>
-    <p>Start by exploring:</p>
-    <ul>
-      <li><code class="code">/src/routes/+layout.svelte</code> - barebones layout</li>
-      <li><code class="code">/src/app.postcss</code> - app wide css</li>
-      <li>
-        <code class="code">/src/routes/+page.svelte</code> - this page, you can replace the contents
-      </li>
-    </ul>
-  </div>
-</div>
+<form method="post" use:enhance>
+  <label class="label">
+    <span>To</span>
+    <input name="to" type="text" class="input" value="ricecracker2234@gmail.com" required />
+  </label>
+  <label class="label">
+    <span>Subject</span>
+    <input name="subject" type="text" class="input" required />
+  </label>
+  <label class="label">
+    <span>Content</span>
+    <textarea name="text" class="textarea" rows="6" required />
+  </label>
+  <button type="submit" class="variant-filled-surface btn">submit</button>
+</form>

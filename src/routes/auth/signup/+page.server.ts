@@ -20,24 +20,33 @@ export const actions: Actions = {
     const password = formData.get('password');
     // username must be between 4 ~ 31 characters, and only consists of lowercase letters, 0-9, -, and _
     // keep in mind some database (e.g. mysql) are case insensitive
-    const [usernameValid, usernameMessage] = validateUsername(username);
-    if (typeof username !== 'string' || !usernameValid) {
+    const usernameValid = validateUsername(username);
+    if (typeof username !== 'string' || !usernameValid.validated) {
       return fail(400, {
-        message: usernameMessage,
+        message: usernameValid.message ?? 'Unknown error',
       });
     }
 
-    const [passwordValid, passwordMessage] = validatePassword(password);
-    if (typeof password !== 'string' || !passwordValid) {
+    const passwordValid = validatePassword(password);
+    if (typeof password !== 'string' || !passwordValid.validated) {
       return fail(400, {
-        message: passwordMessage,
+        message: passwordValid.message ?? 'Unknown error',
       });
     }
 
     const userId = generateIdFromEntropySize(10); // 16 characters long
     const passwordHash = await hasher.hash(password);
 
-    // TODO: check if username is already used
+    const existingUser = await database.query.userTable.findFirst({
+      where: (users, { eq }) => eq(users.username, username),
+    });
+
+    if (existingUser) {
+      return fail(400, {
+        message: 'Username already exists.',
+      });
+    }
+
     await database.insert(userTable).values({
       id: userId,
       username: username,
